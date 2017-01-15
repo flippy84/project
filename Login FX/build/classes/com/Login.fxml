@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" minHeight="364.0" prefHeight="364.0" prefWidth="805.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.Login.LoginController">
+  <children>
+    <TextField id="" fx:id="txtUsername" layoutX="142.0" layoutY="104.0" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="487.0" promptText="Username" text="" />
+    <PasswordField id="" fx:id="txtPassword" alignment="CENTER_LEFT" layoutX="142.0" layoutY="182.0" prefHeight="40.0" prefWidth="487.0" promptText="Password" text="" />
+    <Button id="" fx:id="btnLogin" alignment="CENTER" blendMode="SRC_ATOP" cache="true" cacheHint="DEFAULT" contentDisplay="CENTER" depthTest="DISABLE" disable="false" focusTraversable="true" graphicTextGap="4.0" layoutX="142.0" layoutY="242.0" minHeight="40.0" mnemonicParsing="false" onAction="#btnLoginAction" opacity="1.0" prefHeight="51.0" prefWidth="175.0" text="Login" textFill="#202020" textOverrun="ELLIPSIS" visible="true">
+      <font>
+        <Font name="Times New Roman Bold Italic" size="20.0" />
+      </font>
+    </Button>
+    <Label fx:id="lblMessage" contentDisplay="LEFT" layoutX="84.0" layoutY="32.0" prefHeight="58.0" prefWidth="620.0" text="" textAlignment="LEFT" underline="false">
+      <font>
+        <Font name="Times New Roman" size="35.0" />
+      </font>
+    </Label>
+  </children>
+</AnchorPane>

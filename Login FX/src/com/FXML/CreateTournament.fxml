@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="168.0" prefWidth="526.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.League.CreateTournamentController">
+  <children>
+    <TextField fx:id="tourneyName" focusTraversable="false" layoutX="82.0" layoutY="49.0" prefHeight="25.0" prefWidth="346.0" promptText="Tournament Name" />
+    <Button focusTraversable="false" layoutX="263.0" layoutY="100.0" mnemonicParsing="false" onAction="#btnCreate" prefHeight="40.0" prefWidth="84.0" text="Create">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <SplitMenuButton layoutX="-175.0" layoutY="-81.0" mnemonicParsing="false" text="SplitMenuButton">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </SplitMenuButton>
+      <ComboBox fx:id="league" focusTraversable="false" layoutX="82.0" layoutY="96.0" prefHeight="25.0" prefWidth="112.0" promptText="Select League" />
+      <Label fx:id="lblMessage" layoutX="128.0" layoutY="11.0">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+  </children>
+</AnchorPane>
