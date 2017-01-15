@@ -180,7 +180,7 @@ public class LeagueController implements Initializable {
         ((Node) (event.getSource())).requestFocus();
         Parent parent = FXMLLoader.load(getClass().getResource("/com/FXML/CreateTournament.fxml"));
         Stage stage = new Stage();
-
+        //HEJSANHEJSANHEJSAN
         Scene scene = new Scene(parent);
         stage.setScene(scene);
         stage.setTitle("Create Tournament");
