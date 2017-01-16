@@ -21,11 +21,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.application.Platform;
-
+import javafx.stage.Stage;
 
 
 /**
@@ -83,9 +84,14 @@ public class MainController implements Initializable {
         pane.getChildren().add(node);
     }
     @FXML
-    public void CloseApp(ActionEvent event) {
-        Platform.exit();
-        System.exit(0);
+    public void CloseApp(ActionEvent event) throws IOException {
+        ((Node) (event.getSource())).getScene().getWindow().hide();
+        Parent parent = FXMLLoader.load(getClass().getResource("/com/FXML/Login.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(parent);
+        stage.setScene(scene);
+        stage.setTitle("Login");
+        stage.show();
     }
     
     /**

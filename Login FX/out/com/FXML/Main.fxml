@@ -13,7 +13,7 @@
             <Button fx:id="library" focusTraversable="false" mnemonicParsing="false" onAction="#btnLibrary" prefHeight="87.0" prefWidth="170.0" text="Library" />
             <Button fx:id="leagues" focusTraversable="false" mnemonicParsing="false" onAction="#btnLeague" prefHeight="87.0" prefWidth="170.0" text="Leagues" />
             <Button fx:id="view" focusTraversable="false" mnemonicParsing="false" onAction="#btnView" prefHeight="87.0" prefWidth="170.0" text="View" />
-            <Button focusTraversable="false" mnemonicParsing="false" onAction="#CloseApp" prefHeight="87.0" prefWidth="151.0" text="Exit" />
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#CloseApp" prefHeight="87.0" prefWidth="151.0" text="Logout" />
          </children>
       </HBox>
       <Pane fx:id="pane" layoutY="87.0" prefHeight="385.0" prefWidth="830.0" />

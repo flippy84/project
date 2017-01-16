@@ -120,6 +120,9 @@ public class Database{
     public void changePassword(String newPassword, String currentUsername) throws SQLException{
         statement.execute("UPDATE Users SET passwords = '" + newPassword + "' where username like '" + currentUsername + "';");
     }
+    public boolean tournamentActive(String tournamentName) throws SQLException{
+        return true;
+    }
     public String getUserType(String username) throws SQLException {
         resultSet = statement.executeQuery("select userType from Users where username ='" + username + "';");
 
