@@ -106,7 +106,7 @@ public class Database{
         "WHERE username =" + username + ";");
     }
     public void addUser(String username, String password, String userType) throws SQLException{
-        if(username.isEmpty() || password.isEmpty()){
+        if(username.isEmpty() || password.isEmpty() || userType.isEmpty()){
             System.out.println("No fields can be blank.");
             return;
         }
