@@ -84,6 +84,13 @@ public class MainController implements Initializable {
         pane.getChildren().add(node);
     }
     @FXML
+    private void btnAds(ActionEvent event) throws IOException {
+        ((Node) (event.getSource())).requestFocus();
+        Parent node = FXMLLoader.load(getClass().getResource("/com/FXML/Ads.fxml"));
+        pane.getChildren().clear();
+        pane.getChildren().add(node);
+    }
+    @FXML
     public void CloseApp(ActionEvent event) throws IOException {
         ((Node) (event.getSource())).getScene().getWindow().hide();
         Parent parent = FXMLLoader.load(getClass().getResource("/com/FXML/Login.fxml"));
