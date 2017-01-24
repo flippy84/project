@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
 /**
@@ -36,6 +37,8 @@ public class NewUserController implements Initializable {
     private TextField txtUsername;
     @FXML
     private PasswordField txtPassword;
+    @FXML
+    private ComboBox<String> userType;
 
     private Database db;
 
@@ -48,14 +51,15 @@ public class NewUserController implements Initializable {
             lblMessage.setText("No fields can be blank.");
         }
         else {
-            db.addUser(txtUsername.getText(), txtPassword.getText());
+            db.addUser(txtUsername.getText(), txtPassword.getText(), userType.getSelectionModel().getSelectedItem());
             ((Node) (event.getSource())).getScene().getWindow().hide();
         }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        userType.getItems().addAll("Player", "Advertiser");
+        userType.getSelectionModel().select(0);
     }    
     
 }

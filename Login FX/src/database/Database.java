@@ -105,12 +105,12 @@ public class Database{
         ("DELETE FROM CurrentTournament\n" +
         "WHERE username =" + username + ";");
     }
-    public void addUser(String username, String password) throws SQLException{
+    public void addUser(String username, String password, String userType) throws SQLException{
         if(username.isEmpty() || password.isEmpty()){
             System.out.println("No fields can be blank.");
             return;
         }
-        statement.execute("INSERT INTO Users(username,passwords) VALUES('" + username + "','" + password + "');");
+        statement.execute("INSERT INTO Users(username,passwords, userType) VALUES('" + username + "','" + password + "','" + userType + "');");
 
         System.out.println("Successful register of " + username);
     }
