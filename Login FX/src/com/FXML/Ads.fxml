@@ -5,15 +5,15 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
-<Pane fx:id="pane" layoutY="87.0" prefHeight="385.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.View.ViewController">
+<Pane fx:id="pane" layoutY="87.0" prefHeight="348.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Ads.AdsController">
    <children>
-      <Button layoutX="24.0" layoutY="255.0" mnemonicParsing="false" text="Upload new ad" />
-      <Button layoutX="179.0" layoutY="49.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="28.0" text="&lt;" />
-      <StackPane layoutX="215.0" layoutY="49.0" prefHeight="211.0" prefWidth="515.0" style="-fx-border-color: black;">
+      <Button fx:id="btnUpload" layoutX="708.0" layoutY="226.0" mnemonicParsing="false" onAction="#upload" text="Upload new ad" />
+      <Button fx:id="btnPrev" layoutX="187.0" layoutY="95.0" mnemonicParsing="false" onAction="#prev" prefHeight="100.0" prefWidth="28.0" text="&lt;" />
+      <Button fx:id="btnNext" layoutX="635.0" layoutY="95.0" mnemonicParsing="false" onAction="#next" prefHeight="100.0" prefWidth="28.0" text="&gt;" />
+      <StackPane layoutX="215.0" layoutY="95.0" prefHeight="100.0" prefWidth="420.0" style="-fx-border-color: black;">
          <children>
-            <ImageView fitHeight="137.0" fitWidth="514.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="image" fitHeight="80.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </StackPane>
-      <Button layoutX="740.0" layoutY="49.0" mnemonicParsing="false" prefHeight="211.0" prefWidth="28.0" text="&gt;" />
    </children>
 </Pane>
