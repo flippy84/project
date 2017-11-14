@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Login FX">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Login FX/dist/Login FX.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
