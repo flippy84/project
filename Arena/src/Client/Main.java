@@ -1,11 +1,14 @@
 package Client;
 
 import Client.Login.Login;
+import Shared.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.util.Optional;
 
 public class Main extends Application {
     @Override
@@ -17,5 +20,9 @@ public class Main extends Application {
         stage.show();*/
 
         Login login = new Login();
+        Optional<User> user = login.login();
+        user.ifPresent(u -> {
+            System.out.println(String.format("Logging in as %s", u.username));
+        });
     }
 }

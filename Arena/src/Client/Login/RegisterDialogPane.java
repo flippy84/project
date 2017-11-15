@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 
 import java.io.IOException;
-import java.util.StringTokenizer;
 
 public class RegisterDialogPane extends DialogPane {
     @FXML
