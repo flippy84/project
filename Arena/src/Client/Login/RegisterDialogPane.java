@@ -1,6 +1,6 @@
 package Client.Login;
 
-import Server.*;
+import Server.Server;
 import Shared.User;
 import Shared.UserType;
 import javafx.collections.FXCollections;
@@ -29,9 +29,10 @@ public class RegisterDialogPane extends DialogPane {
         loader.setRoot(this);
         loader.setController(this);
         loader.load();
+        // Get the server instance for adding an user.
         server = Server.getInstance();
 
-
+        // Add items to the userType ChoiceBox.
         ObservableList<UserType> userTypeList = FXCollections.observableArrayList();
         for(UserType t : UserType.values()) {
             userTypeList.add(t);
@@ -39,15 +40,17 @@ public class RegisterDialogPane extends DialogPane {
         userType.setItems(userTypeList);
         userType.getSelectionModel().selectFirst();
 
+        // Add buttons to the dialog.
         ButtonType registerType = new ButtonType("Register", ButtonBar.ButtonData.OK_DONE);
 
         this.getButtonTypes().add(registerType);
         this.getButtonTypes().add(new ButtonType("Cancel", ButtonBar.ButtonData.OTHER));
 
+        // Get the register button and add an event filter for form validation.
         Button registerButton = (Button) this.lookupButton(registerType);
         registerButton.addEventFilter(ActionEvent.ACTION, event -> {
             if (validForm()) {
-                registerUser(new User(username.getText(), password1.getText(), 0, userType.getValue()));
+                registerUser(new User(username.getText(), password1.getText(), userType.getValue()));
             } else {
                 event.consume();
             }
@@ -66,6 +69,11 @@ public class RegisterDialogPane extends DialogPane {
         return userType.getSelectionModel().getSelectedItem();
     }
 
+    /**
+     * Validate the form and check that the user doesn't already exists
+     * and check that both passwords are equal.
+     * @return Returns true if the form is valid.
+     */
     private boolean validForm() {
         if (username.getText().length() == 0)
             return false;
@@ -86,6 +94,11 @@ public class RegisterDialogPane extends DialogPane {
         server.addUser(user);
     }
 
+    /**
+     * Check that the user doesn't exists.
+     * @param username The username of the user to check.
+     * @return Returns true if the user exists.
+     */
     private boolean userExists(String username) {
         Optional<User> user = server.getUser(username);
         if (user.isPresent())

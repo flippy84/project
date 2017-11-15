@@ -1,5 +1,9 @@
 package Shared;
 
+/**
+ * This enum describes the users type of account, this needs to match
+ * the contents of the database table UserTypes.
+ */
 public enum UserType
 {
     Player(1),

@@ -160,11 +160,21 @@ public class Database {
 
     public Optional<User> getUser(String username) {
         try {
-            resultSet = statement.executeQuery("SELECT username, password FROM Users WHERE username = '" + username + "'");
+            resultSet = statement.executeQuery("SELECT username, password, rating, userType FROM Users WHERE username = '" + username + "'");
 
             if(!resultSet.next())
                 return Optional.empty();
-            return Optional.of(new User(resultSet.getString("username"), resultSet.getString("password")));
+
+            UserType userType = UserType.Player;
+            int value = resultSet.getInt("userType");
+            for (UserType t : UserType.values()) {
+                if (t.value() == value) {
+                    userType = t;
+                    break;
+                }
+            }
+
+            return Optional.of(new User(resultSet.getString("username"), resultSet.getString("password"), resultSet.getInt("rating"), userType));
         } catch (SQLException exception) {
             return Optional.empty();
         }

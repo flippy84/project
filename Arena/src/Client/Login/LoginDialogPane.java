@@ -1,16 +1,13 @@
 package Client.Login;
 
+import Server.Server;
 import Shared.User;
-import Server.*;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.*;
 import javafx.scene.control.ButtonBar.ButtonData;
+
 import java.io.IOException;
 import java.util.Optional;
 
@@ -19,6 +16,8 @@ public class LoginDialogPane extends DialogPane {
     private TextField username;
     @FXML
     private PasswordField password;
+
+    private User user;
 
     public LoginDialogPane() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginDialogPane.fxml"));
@@ -47,14 +46,6 @@ public class LoginDialogPane extends DialogPane {
         });
     }
 
-    public String getUsername() {
-        return username.getText();
-    }
-
-    public String getPassword() {
-        return password.getText();
-    }
-
     private void showRegisterDialog() {
         Optional<ButtonType> result;
         RegisterDialog registerDialog;
@@ -79,7 +70,6 @@ public class LoginDialogPane extends DialogPane {
     private boolean isUserValid() {
         Server server = null;
         Optional<User> userOptional;
-        User user;
 
         try {
             server = Server.getInstance();
@@ -96,5 +86,9 @@ public class LoginDialogPane extends DialogPane {
             return false;
 
         return true;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

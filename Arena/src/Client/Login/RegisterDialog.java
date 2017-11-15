@@ -3,8 +3,6 @@ package Client.Login;
 import Shared.UserType;
 import javafx.scene.control.Dialog;
 
-import java.io.IOException;
-
 public class RegisterDialog extends Dialog {
     private RegisterDialogPane registerDialogPane;
 

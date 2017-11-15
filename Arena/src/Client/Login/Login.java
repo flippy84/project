@@ -1,10 +1,15 @@
 package Client.Login;
 
 import Shared.User;
+import Shared.UserType;
 import javafx.scene.control.ButtonType;
 
 import java.util.Optional;
 
+/**
+ * This class is used for logging in a user, it returns the
+ * logged in user as a non empty optional if the login succeeded.
+ */
 public class Login {
     public Optional<User> login() {
         ButtonType buttonType;
@@ -24,16 +29,11 @@ public class Login {
 
         buttonType = result.get();
         switch (buttonType.getText()) {
-            case "Register...":
-                System.out.println("Show register dialog");
-                //RegisterDialog registerDialog = new RegisterDialog();
-                //registerDialog.showAndWait();
-                break;
             case "Guest login":
-                user = new User("guest", "guest");
+                user = new User("guest", "guest", UserType.Player);
                 break;
             case "Login":
-                user = new User(dialog.getUsername(), dialog.getPassword());
+                user = dialog.getUser();
                 break;
         }
 

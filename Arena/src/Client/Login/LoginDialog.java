@@ -1,6 +1,7 @@
 package Client.Login;
 
-import javafx.fxml.FXMLLoader;
+import Shared.User;
+import Shared.UserType;
 import javafx.scene.control.Dialog;
 
 import java.io.IOException;
@@ -14,11 +15,7 @@ public class LoginDialog extends Dialog {
         this.setTitle("Login");
     }
 
-    public String getUsername() {
-        return loginDialogPane.getUsername();
-    }
-
-    public String getPassword() {
-        return loginDialogPane.getPassword();
+    public User getUser() {
+        return loginDialogPane.getUser();
     }
 }
