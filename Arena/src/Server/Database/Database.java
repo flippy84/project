@@ -1,6 +1,7 @@
 package Server.Database;
 
 import Shared.User;
+import Shared.UserType;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class Database {
     private Statement statement;
     private ResultSet resultSet;
     private String url;
+    private Connection connection;
 
     {
         url = "jdbc:sqlserver://hitsql-db.hb.se:56077;Server.Database.Database=oomuht1608;user=oomuht1608;password=spad66";
@@ -24,7 +26,7 @@ public class Database {
     }
 
     public Database() throws SQLException {
-        Connection connection = DriverManager.getConnection(url);
+        connection = DriverManager.getConnection(url);
         statement = connection.createStatement();
 
     }
@@ -102,7 +104,7 @@ public class Database {
                         "WHERE username =" + username + ";");
     }
 
-    public void addUser(String username, String password, String userType) throws SQLException {
+    /*public void addUser(String username, String password, String userType) throws SQLException {
         if (username.isEmpty() || password.isEmpty() || userType.isEmpty()) {
             System.out.println("No fields can be blank.");
             return;
@@ -110,7 +112,7 @@ public class Database {
         statement.execute("INSERT INTO Users(username,passwords, userType) VALUES('" + username + "','" + password + "','" + userType + "');");
 
         System.out.println("Successful register of " + username);
-    }
+    }*/
 
     public void changeUsername(String newUsername, String currentUsername) throws SQLException {
         statement.execute("UPDATE Users SET username = '" + newUsername + "' where username like '" + currentUsername + "';");
@@ -121,6 +123,38 @@ public class Database {
     }
 
     public boolean tournamentActive(String tournamentName) throws SQLException {
+        return true;
+    }
+
+    public boolean addUser(String username, String password, int rating, UserType userType) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO Users(username, password, rating, userType) VALUES(?, ?, ?, ?)");
+            statement.setString(1, username);
+            statement.setString(2, password);
+            statement.setInt(3, rating);
+            statement.setInt(4, userType.value());
+            statement.executeUpdate();
+
+        } catch (SQLException exception) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean addUser(User user) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO Users(username, password, rating, userType) VALUES(?, ?, ?, ?)");
+            statement.setString(1, user.username);
+            statement.setString(2, user.password);
+            statement.setInt(3, user.rating);
+            statement.setInt(4, user.userType.value());
+            statement.executeUpdate();
+
+        } catch (SQLException exception) {
+            return false;
+        }
+
         return true;
     }
 

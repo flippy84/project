@@ -1,13 +1,28 @@
 package Client.Login;
 
+import Shared.UserType;
 import javafx.scene.control.Dialog;
 
 import java.io.IOException;
 
 public class RegisterDialog extends Dialog {
-    public RegisterDialog() throws IOException {
-        RegisterDialogPane register = new RegisterDialogPane();
-        this.setDialogPane(register);
+    private RegisterDialogPane registerDialogPane;
+
+    public RegisterDialog() throws Exception {
+        registerDialogPane = new RegisterDialogPane();
+        this.setDialogPane(registerDialogPane);
         this.setTitle("Register");
+    }
+
+    public String getUsername() {
+        return registerDialogPane.getUsername();
+    }
+
+    public String getPassword() {
+        return registerDialogPane.getPassword();
+    }
+
+    public UserType getUserType() {
+        return registerDialogPane.getUserType();
     }
 }

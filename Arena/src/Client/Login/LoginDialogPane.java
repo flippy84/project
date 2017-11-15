@@ -36,7 +36,7 @@ public class LoginDialogPane extends DialogPane {
 
         Button registerButton = (Button) this.lookupButton(registerType);
         registerButton.addEventFilter(ActionEvent.ACTION, event -> {
-            registerUser();
+            showRegisterDialog();
             event.consume();
         });
 
@@ -55,17 +55,25 @@ public class LoginDialogPane extends DialogPane {
         return password.getText();
     }
 
-    private Optional<User> registerUser() {
-        User user = null;
+    private void showRegisterDialog() {
+        Optional<ButtonType> result;
+        RegisterDialog registerDialog;
 
         try {
-            RegisterDialog registerDialog = new RegisterDialog();
-            registerDialog.showAndWait();
+            registerDialog = new RegisterDialog();
+            result = registerDialog.showAndWait();
         } catch (Exception exception) {
-            return Optional.empty();
+            return;
         }
 
-        return Optional.ofNullable(user);
+        if (!result.isPresent())
+            return;
+
+        if (!result.get().getText().equals("Register"))
+            return;
+
+        username.setText(registerDialog.getUsername());
+        password.setText(registerDialog.getPassword());
     }
 
     private boolean isUserValid() {
