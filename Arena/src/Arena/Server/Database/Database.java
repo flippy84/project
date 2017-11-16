@@ -160,7 +160,9 @@ public class Database {
 
     public Optional<User> getUser(String username) {
         try {
-            resultSet = statement.executeQuery("SELECT username, password, rating, userType FROM Users WHERE username = '" + username + "'");
+            PreparedStatement statement = connection.prepareStatement("SELECT username, password, rating, userType FROM Users WHERE username = ?");
+            statement.setString(1, username);
+            resultSet = statement.executeQuery();
 
             if(!resultSet.next())
                 return Optional.empty();
