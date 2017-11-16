@@ -30,7 +30,7 @@ public class Login {
         buttonType = result.get();
         switch (buttonType.getText()) {
             case "Guest login":
-                user = new User("guest", "guest", UserType.Player);
+                user = new User("guest", "guest", UserType.Spectator);
                 break;
             case "Login":
                 user = dialog.getUser();
