@@ -104,16 +104,6 @@ public class Database {
                         "WHERE username =" + username + ";");
     }
 
-    /*public void addUser(String username, String password, String userType) throws SQLException {
-        if (username.isEmpty() || password.isEmpty() || userType.isEmpty()) {
-            System.out.println("No fields can be blank.");
-            return;
-        }
-        statement.execute("INSERT INTO Users(username,passwords, userType) VALUES('" + username + "','" + password + "','" + userType + "');");
-
-        System.out.println("Successful register of " + username);
-    }*/
-
     public void changeUsername(String newUsername, String currentUsername) throws SQLException {
         statement.execute("UPDATE Users SET username = '" + newUsername + "' where username like '" + currentUsername + "';");
     }
