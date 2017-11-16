@@ -25,6 +25,7 @@ public class LoginDialogPane extends DialogPane {
         loader.setController(this);
         loader.load();
 
+        // Add buttons to the dialog.
         ButtonType registerType = new ButtonType("Register...", ButtonData.OTHER);
         ButtonType loginType = new ButtonType("Login", ButtonData.OK_DONE);
 
@@ -33,19 +34,26 @@ public class LoginDialogPane extends DialogPane {
         this.getButtonTypes().add(new ButtonType("Guest login", ButtonData.OTHER));
         this.getButtonTypes().add(new ButtonType("Quit", ButtonData.CANCEL_CLOSE));
 
+        // Add an event filter to prevent the dialog to close.
         Button registerButton = (Button) this.lookupButton(registerType);
         registerButton.addEventFilter(ActionEvent.ACTION, event -> {
             showRegisterDialog();
             event.consume();
         });
 
+        // Don't close the dialog if the user isn't valid.
         Button loginButton = (Button) this.lookupButton(loginType);
         loginButton.addEventFilter(ActionEvent.ACTION, event -> {
-            if (!isUserValid())
+            if (!isLoginValid())
                 event.consume();
         });
     }
 
+    /**
+     * Show a user registration dialog and if the user successfully
+     * registered a new user fill in username and password in the
+     * login dialog for convenience.
+     */
     private void showRegisterDialog() {
         Optional<ButtonType> result;
         RegisterDialog registerDialog;
@@ -67,7 +75,12 @@ public class LoginDialogPane extends DialogPane {
         password.setText(registerDialog.getPassword());
     }
 
-    private boolean isUserValid() {
+    /**
+     * Checks if the user entered username and password
+     * matches a user in the database.
+     * @return Return true if the login is valid.
+     */
+    private boolean isLoginValid() {
         Server server = null;
         Optional<User> userOptional;
 
