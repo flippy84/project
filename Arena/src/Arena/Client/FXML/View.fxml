@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane fx:id="pane" layoutY="87.0" prefHeight="385.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Arena.Client.View.ViewController">
+   <children>
+      <Label layoutX="20.0" layoutY="-45.0" prefHeight="29.0" prefWidth="83.0" text="Staaaaaats">
+         <font>
+            <Font name="Times New Roman" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="20.0" prefHeight="29.0" prefWidth="83.0" text="Staaaaaats">
+         <font>
+            <Font name="Times New Roman" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="20.0" layoutY="42.0" prefHeight="29.0" prefWidth="83.0" text="Staaaaaats">
+         <font>
+            <Font name="Times New Roman" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="20.0" layoutY="86.0" prefHeight="29.0" prefWidth="83.0" text="Staaaaaats">
+         <font>
+            <Font name="Times New Roman" size="19.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
