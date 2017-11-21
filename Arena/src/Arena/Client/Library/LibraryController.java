@@ -1,7 +1,7 @@
 package Arena.Client.Library;
 
 import Arena.Server.Database.Database;
-import games.TicTacToe;
+//import games.TicTacToe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,8 +25,8 @@ public class LibraryController implements Initializable {
     @FXML
     private void btnTicTacToeAction(ActionEvent event) throws IOException {
         ((Node) (event.getSource())).requestFocus();
-        TicTacToe game = new TicTacToe();
-        game.start(new Stage());
+        /*TicTacToe game = new TicTacToe();
+        game.start(new Stage());*/
     }
 
     @Override

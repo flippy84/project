@@ -91,7 +91,7 @@ public class LoginDialogPane extends DialogPane {
             return false;
         }
 
-        userOptional  = server.getUser(username.getText());
+        userOptional = server.getUser(username.getText());
         if (!userOptional.isPresent())
             return false;
 
