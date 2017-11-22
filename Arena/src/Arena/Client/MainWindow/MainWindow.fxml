@@ -4,89 +4,100 @@
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<HBox prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Accordion minWidth="-Infinity" prefWidth="200.0">
+         <panes>
+            <TitledPane text="Games">
+               <content>
+                  <VBox>
+                     <children>
+                        <Button fx:id="library" mnemonicParsing="false" prefWidth="1000.0" text="Library">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="installed" mnemonicParsing="false" prefWidth="1000.0" text="Installed">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefWidth="1000.0" text="Pending approval">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="upload" mnemonicParsing="false" prefWidth="1000.0" text="Upload game">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" text="Tournaments">
+               <content>
+                  <VBox>
+                     <children>
+                        <Button mnemonicParsing="false" prefWidth="1000.0" text="Find tournament" />
+                        <Button mnemonicParsing="false" prefWidth="1000.0" text="My tournaments">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+            <TitledPane prefHeight="200.0" prefWidth="200.0" text="Leagues">
+               <content>
+                  <VBox>
+                     <children>
+                        <Button mnemonicParsing="false" prefWidth="1000.0" text="Find league" />
+                        <Button mnemonicParsing="false" prefWidth="1000.0" text="My leagues">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" text="Settings">
+               <content>
+                  <VBox>
+                     <children>
+                        <Button mnemonicParsing="false" prefWidth="1000.0" text="Account">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefWidth="1000.0" text="Button">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+         </panes>
+      </Accordion>
+      <VBox prefWidth="2396.0" HBox.hgrow="ALWAYS">
          <children>
-            <Accordion prefWidth="200.0">
-              <panes>
-                  <TitledPane text="Games">
-                     <content>
-                        <VBox>
-                           <children>
-                              <Button mnemonicParsing="false" prefWidth="1000.0" text="Library">
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </Button>
-                              <Button mnemonicParsing="false" prefWidth="1000.0" text="Installed">
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
-                        </VBox>
-                     </content>
-                  </TitledPane>
-                <TitledPane animated="false" text="Tournaments">
-                     <content>
-                        <VBox>
-                           <children>
-                              <Button mnemonicParsing="false" prefWidth="1000.0" text="Find tournament" />
-                              <Button mnemonicParsing="false" prefWidth="1000.0" text="My tournaments">
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
-                        </VBox>
-                     </content>
-                </TitledPane>
-                  <TitledPane prefHeight="200.0" prefWidth="200.0" text="Leagues">
-                     <content>
-                        <VBox>
-                           <children>
-                              <Button mnemonicParsing="false" prefWidth="1000.0" text="Find league" />
-                              <Button mnemonicParsing="false" prefWidth="1000.0" text="My leagues">
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
-                        </VBox>
-                     </content>
-                  </TitledPane>
-                <TitledPane animated="false" text="Settings">
-                     <content>
-                        <VBox>
-                           <children>
-                              <Button mnemonicParsing="false" prefWidth="1000.0" text="Account">
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </Button>
-                              <Button mnemonicParsing="false" prefWidth="1000.0" text="Button">
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
-                        </VBox>
-                     </content>
-                </TitledPane>
-              </panes>
-            </Accordion>
-            <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+            <Pane fx:id="view" VBox.vgrow="ALWAYS" />
+            <Pane prefHeight="100.0">
                <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                  <ImageView fx:id="advertisement" fitHeight="75.0" fitWidth="300.0" layoutX="250.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
                </children>
-            </VBox>
+            </Pane>
          </children>
-      </HBox>
+      </VBox>
    </children>
-</AnchorPane>
+</HBox>

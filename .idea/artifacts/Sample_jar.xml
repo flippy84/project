@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Sample:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Sample_jar</output-path>
+    <root id="archive" name="Sample.jar">
+      <element id="module-output" name="Sample" />
+      <element id="module-output" name="Arena" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/Arena/lib/sqljdbc42.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

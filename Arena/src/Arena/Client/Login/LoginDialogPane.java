@@ -51,7 +51,7 @@ public class LoginDialogPane extends DialogPane {
     }
 
     /**
-     * Show a user registration dialog and if the user successfully
+     * Show an user registration dialog and if the user successfully
      * registered a new user fill in username and password in the
      * login dialog for convenience.
      */

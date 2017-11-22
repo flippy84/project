@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Arena/Arena.iml" filepath="$PROJECT_DIR$/Arena/Arena.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ConnectFour/ConnectFour.iml" filepath="$PROJECT_DIR$/ConnectFour/ConnectFour.iml" group="Games" />
+      <module fileurl="file://$PROJECT_DIR$/Sample/Sample.iml" filepath="$PROJECT_DIR$/Sample/Sample.iml" group="Games" />
     </modules>
   </component>
 </project>

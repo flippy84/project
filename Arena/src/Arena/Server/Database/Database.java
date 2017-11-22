@@ -1,8 +1,14 @@
 package Arena.Server.Database;
 
+import Arena.Shared.GameState;
 import Arena.Shared.User;
 import Arena.Shared.UserType;
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
+import javafx.fxml.Initializable;
 
+import java.io.*;
+import java.nio.file.*;
+import java.nio.file.attribute.FileAttribute;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -12,7 +18,7 @@ import java.util.logging.Logger;
 public class Database {
 
     private Statement statement;
-    private ResultSet resultSet;
+    private ResultSet result;
     private String url;
     private Connection connection;
 
@@ -32,42 +38,42 @@ public class Database {
     }
 
     public ArrayList<String> getLeagues() throws SQLException {
-        resultSet = statement.executeQuery
+        result = statement.executeQuery
                 ("SELECT leagueName FROM League");
 
         ArrayList<String> leagues = new ArrayList<>();
-        while (resultSet.next())
-            leagues.add(resultSet.getString(1));
+        while (result.next())
+            leagues.add(result.getString(1));
         return leagues;
     }
 
     public ArrayList<String> getTournament(String leagueName) throws SQLException {
-        resultSet = statement.executeQuery
+        result = statement.executeQuery
                 ("select tournamentName from Tournament where leagueName ='" + leagueName + "';");
 
         ArrayList<String> tournaments = new ArrayList<>();
-        while (resultSet.next())
-            tournaments.add(resultSet.getString(1));
+        while (result.next())
+            tournaments.add(result.getString(1));
         return tournaments;
     }
 
     public ArrayList<String> getTournamnetPlayers(String tournamentName) throws SQLException {
-        resultSet = statement.executeQuery
+        result = statement.executeQuery
                 ("select username from CurrentTournament where tournamentName ='" + tournamentName + "';");
         ArrayList<String> players = new ArrayList<String>();
 
-        while (resultSet.next()) {
-            players.add(resultSet.getString(1));
+        while (result.next()) {
+            players.add(result.getString(1));
         }
         return players;
     }
 
     public boolean checkLogin(String username, String password) throws SQLException {
-        resultSet = statement.executeQuery
+        result = statement.executeQuery
                 ("SELECT username, passwords FROM Users");
 
-        while (resultSet.next()) {
-            if (username.equals(resultSet.getString(1)) && password.equals(resultSet.getString(2))) {
+        while (result.next()) {
+            if (username.equals(result.getString(1)) && password.equals(result.getString(2))) {
                 System.out.println("Main success!\n");
                 return true;
             }
@@ -148,17 +154,104 @@ public class Database {
         return true;
     }
 
+    private Optional<InputStream> getInputStream(GameState gameState) {
+        try {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(out);
+            oos.writeObject(gameState);
+
+            byte[] buffer = out.toByteArray();
+            ByteInputStream input = new ByteInputStream(buffer, buffer.length);
+            return Optional.of(input);
+        } catch (Exception exception) {
+            return Optional.empty();
+        }
+    }
+
+    public void saveGame(GameState gameState, User player1, User player2) {
+        Optional<InputStream> inputOptional = getInputStream(gameState);
+        if (!inputOptional.isPresent())
+            return;
+        InputStream input = inputOptional.get();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM Matches WHERE player1 = ? AND player2 = ?");
+            statement.setInt(1, player1.id);
+            statement.setInt(2, player2.id);
+
+            result = statement.executeQuery();
+            if (!result.next()) {
+                // No ResultSet, insert a new row.
+                statement = connection.prepareStatement("INSERT INTO Matches (player1, player2, gameState) VALUES (?, ?, ?)");
+                statement.setInt(1, player1.id);
+                statement.setInt(2, player2.id);
+                statement.setBinaryStream(3, input);
+                statement.execute();
+            } else {
+                // A row for this set already exists, update it with the new GameState.
+                statement = connection.prepareStatement("UPDATE Matches SET gameState = ? WHERE player1 = ? AND player2 = ?");
+                statement.setObject(1, input);
+                statement.setInt(2, player1.id);
+                statement.setInt(3, player2.id);
+                statement.execute();
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void uploadGame() throws Exception {
+            File f = new File("C:\\Users\\Ante\\IdeaProjects\\project\\out\\artifacts\\Sample_jar\\Sample.jar");
+            FileReader reader = new FileReader(f);
+            FileInputStream input = new FileInputStream(f);
+
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO Games (jar) VALUES (?)");
+            statement.setBinaryStream(1, input);
+            if (statement.execute()) {
+                System.out.println("Games uploaded successfully");
+            }
+    }
+
+    public void downloadGame() throws Exception {
+        PreparedStatement statement = connection.prepareStatement("SELECT jar FROM Games WHERE id = 1");
+        result = statement.executeQuery();
+        if (!result.next())
+            return;
+
+        InputStream stream = result.getBinaryStream(1);
+        Path p = FileSystems.getDefault().getPath("C:\\Games\\sample.jar");
+        Files.createDirectories(p.getParent());
+        Files.copy(stream, p, StandardCopyOption.REPLACE_EXISTING);
+    }
+
+    public Optional<GameState> loadGame(User player1, User player2) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT gameState FROM Matches WHERE player1 = ? AND player2 = ?");
+            statement.setInt(1, player1.id);
+            statement.setInt(2, player2.id);
+            result = statement.executeQuery();
+
+            if (!result.next())
+                return Optional.empty();
+
+            GameState gameState = (GameState) result.getObject(1);
+            return Optional.of(gameState);
+        } catch (SQLException exception) {
+            return Optional.empty();
+        }
+    }
+
     public Optional<User> getUser(String username) {
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT username, password, rating, userType FROM Users WHERE username = ?");
             statement.setString(1, username);
-            resultSet = statement.executeQuery();
+            result = statement.executeQuery();
 
-            if(!resultSet.next())
+            if(!result.next())
                 return Optional.empty();
 
             UserType userType = UserType.Player;
-            int value = resultSet.getInt("userType");
+            int value = result.getInt("userType");
             for (UserType t : UserType.values()) {
                 if (t.value() == value) {
                     userType = t;
@@ -166,17 +259,17 @@ public class Database {
                 }
             }
 
-            return Optional.of(new User(resultSet.getString("username"), resultSet.getString("password"), resultSet.getInt("rating"), userType));
+            return Optional.of(new User(result.getString("username"), result.getString("password"), result.getInt("rating"), userType));
         } catch (SQLException exception) {
             return Optional.empty();
         }
     }
 
     public String getUserType(String username) throws SQLException {
-        resultSet = statement.executeQuery("select userType from Users where username ='" + username + "';");
+        result = statement.executeQuery("select userType from Users where username ='" + username + "';");
 
-        if (resultSet.next())
-            return resultSet.getString(1);
+        if (result.next())
+            return result.getString(1);
         return "Not found";
     }
 }

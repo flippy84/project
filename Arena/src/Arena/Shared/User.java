@@ -5,6 +5,7 @@ package Arena.Shared;
  * is up to date with the table columns of table Users.
  */
 public class User {
+    public int id;
     public String username;
     public String password;
     public int rating;
