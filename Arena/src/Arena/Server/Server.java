@@ -41,8 +41,8 @@ public class Server {
         return database.loadGame(player1, player2);
     }
 
-    public void uploadGame() throws Exception {
-        database.uploadGame();
+    public boolean uploadGame(String path, String name, String description) {
+        return database.uploadGame(path, name, description);
     }
 
     public void downloadGame() throws Exception {

@@ -200,16 +200,24 @@ public class Database {
         }
     }
 
-    public void uploadGame() throws Exception {
-            File f = new File("C:\\Users\\Ante\\IdeaProjects\\project\\out\\artifacts\\Sample_jar\\Sample.jar");
-            FileReader reader = new FileReader(f);
-            FileInputStream input = new FileInputStream(f);
+    public boolean uploadGame(String path, String name, String description) {
+            File file = new File(path);
 
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO Games (jar) VALUES (?)");
-            statement.setBinaryStream(1, input);
-            if (statement.execute()) {
-                System.out.println("Games uploaded successfully");
+            try {
+                FileInputStream in = new FileInputStream(file);
+
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO Games (name, description, jar, approved) VALUES (?, ?, ?, ?)");
+                statement.setString(1, name);
+                statement.setString(2, description);
+                statement.setBinaryStream(3, in);
+                statement.setBoolean(4, false);
+                if (statement.executeUpdate() == 0)
+                    return false;
+            } catch (Exception exception) {
+                return false;
             }
+
+            return true;
     }
 
     public void downloadGame() throws Exception {
