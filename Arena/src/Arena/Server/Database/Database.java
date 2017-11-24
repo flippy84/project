@@ -4,6 +4,7 @@ import Arena.Client.Games.GameDescription;
 import Arena.Shared.GameState;
 import Arena.Shared.User;
 import Arena.Shared.UserType;
+import Arena.Shared.Utility;
 import javafx.fxml.Initializable;
 
 import java.io.*;
@@ -188,12 +189,9 @@ public class Database {
         }
     }
 
-    public boolean uploadGame(String path, String name, String description) {
-            File file = new File(path);
-
+    public boolean uploadGame(String gameBase64, String name, String description) {
             try {
-                FileInputStream in = new FileInputStream(file);
-
+                ByteArrayInputStream in = new ByteArrayInputStream(Base64.getDecoder().decode(gameBase64));
                 PreparedStatement statement = connection.prepareStatement("INSERT INTO Games (name, description, jar, approved) VALUES (?, ?, ?, ?)");
                 statement.setString(1, name);
                 statement.setString(2, description);
@@ -216,19 +214,8 @@ public class Database {
             return "";
 
         InputStream out = result.getBinaryStream(1);
-        String encodedGame = getBase64String(out);
+        String encodedGame = Utility.getBase64String(out);
         return encodedGame;
-    }
-
-    private String getBase64String(InputStream in) throws Exception {
-        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-        int inByte;
-
-        while ((inByte = in.read()) != -1) {
-            byteStream.write(inByte);
-        }
-
-        return Base64.getEncoder().encodeToString(byteStream.toByteArray());
     }
 
     public List<GameDescription> getGameList() {

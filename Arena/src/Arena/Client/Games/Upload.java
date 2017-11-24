@@ -1,6 +1,7 @@
 package Arena.Client.Games;
 
 import Arena.Server.Server;
+import Arena.Shared.Utility;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -9,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -46,9 +48,12 @@ public class Upload implements Initializable {
         if (path.length() == 0 | name.length() == 0 || description.length() == 0)
             return;
 
+        File file = new File(path);
         try {
             Server server = Server.getInstance();
-            server.uploadGame(path, name, description);
+            FileInputStream in = new FileInputStream(file);
+            String gameBase64 = Utility.getBase64String(in);
+            server.uploadGame(gameBase64, name, description);
         } catch (Exception exception) {
             return;
         }

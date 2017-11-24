@@ -47,8 +47,8 @@ public class Server {
         return database.getGameList();
     }
 
-    public boolean uploadGame(String path, String name, String description) {
-        return database.uploadGame(path, name, description);
+    public boolean uploadGame(String gameBase64, String name, String description) {
+        return database.uploadGame(gameBase64, name, description);
     }
 
     public String downloadGame(int id) throws Exception {
