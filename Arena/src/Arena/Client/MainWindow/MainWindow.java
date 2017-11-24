@@ -15,7 +15,7 @@ public class MainWindow {
     private User user;
 
     @FXML
-    private Button upload, library, installed, approve;
+    private Button upload, library, installed, handle;
     @FXML
     private Pane view;
 
@@ -45,9 +45,9 @@ public class MainWindow {
             });
         });
 
-        approve.setOnMouseClicked(event -> {
-            LoadFXML("/Arena/Client/Games/Approve.fxml").ifPresent(approve -> {
-                updateView(approve);
+        handle.setOnMouseClicked(event -> {
+            LoadFXML("/Arena/Client/Games/Handle.fxml").ifPresent(handle -> {
+                updateView(handle);
             });
         });
 

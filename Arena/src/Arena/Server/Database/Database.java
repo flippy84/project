@@ -302,4 +302,14 @@ public class Database {
             return;
         }
     }
+
+    public void removeGame(int id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM Games WHERE id = ?");
+            statement.setInt(1, id);
+            statement.execute();
+        } catch (SQLException exception) {
+            return;
+        }
+    }
 }

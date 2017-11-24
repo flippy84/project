@@ -12,11 +12,13 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class Approve implements Initializable {
+public class Handle implements Initializable {
     @FXML
     private Button approve;
     @FXML
     private Button revoke;
+    @FXML
+    private Button remove;
     @FXML
     private TableView<GameDescription> table;
     @FXML
@@ -62,6 +64,15 @@ public class Approve implements Initializable {
 
             revokeGame(gameDescription.id);
         });
+
+        remove.setOnMouseClicked(event -> {
+            GameDescription gameDescription = table.getSelectionModel().getSelectedItem();
+
+            int index = table.getSelectionModel().getSelectedIndex();
+            table.getItems().remove(index);
+
+            removeGame(gameDescription.id);
+        });
     }
 
     private void approveGame(int id) {
@@ -75,6 +86,14 @@ public class Approve implements Initializable {
     private void revokeGame(int id) {
         try {
             Server.getInstance().revokeGame(id);
+        } catch (Exception exception) {
+            return;
+        }
+    }
+
+    private void removeGame(int id) {
+        try {
+            Server.getInstance().removeGame(id);
         } catch (Exception exception) {
             return;
         }

@@ -66,4 +66,8 @@ public class Server {
     public void revokeGame(int id) {
         database.revokeGame(id);
     }
+
+    public void removeGame(int id) {
+        database.removeGame(id);
+    }
 }

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Arena.Client.Games.Approve">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Arena.Client.Games.Handle">
     <children>
         <VBox alignment="TOP_RIGHT" layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="500.0">
             <children>
@@ -21,7 +21,11 @@
                 </TableView>
             <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="200.0">
                <children>
-                      <Button fx:id="approve" mnemonicParsing="false" text="Approve" />
+                  <Button fx:id="remove" mnemonicParsing="false" text="Remove" />
+                      <Button fx:id="approve" mnemonicParsing="false" text="Approve">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin></Button>
                   <Button fx:id="revoke" mnemonicParsing="false" text="Revoke">
                      <HBox.margin>
                         <Insets left="5.0" />

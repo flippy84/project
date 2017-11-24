@@ -27,12 +27,12 @@
                               <Insets top="5.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="approve" mnemonicParsing="false" prefWidth="1000.0" text="Update approval">
+                        <Button fx:id="handle" mnemonicParsing="false" prefWidth="1000.0" text="Handle">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="upload" mnemonicParsing="false" prefWidth="1000.0" text="Upload game">
+                        <Button fx:id="upload" mnemonicParsing="false" prefWidth="1000.0" text="Upload">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
