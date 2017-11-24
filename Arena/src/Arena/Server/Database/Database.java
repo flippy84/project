@@ -5,11 +5,11 @@ import Arena.Shared.GameState;
 import Arena.Shared.User;
 import Arena.Shared.UserType;
 import Arena.Shared.Utility;
-import javafx.fxml.Initializable;
 
-import java.io.*;
-import java.nio.file.*;
-import java.nio.file.attribute.FileAttribute;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.ObjectOutputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Base64;

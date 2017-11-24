@@ -2,17 +2,10 @@ package Arena.Client;
 
 import Arena.Client.Login.Login;
 import Arena.Client.MainWindow.MainWindow;
-import Arena.Shared.Game;
 import Arena.Shared.User;
-import Arena.Shared.UserType;
 import javafx.application.Application;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.Optional;
 
 public class Main extends Application {
