@@ -1,10 +1,12 @@
 package Arena.Server;
 
+import Arena.Client.Games.GameDescription;
 import Arena.Server.Database.Database;
 import Arena.Shared.GameState;
 import Arena.Shared.User;
 import Arena.Shared.UserType;
 
+import java.util.List;
 import java.util.Optional;
 
 public class Server {
@@ -41,11 +43,15 @@ public class Server {
         return database.loadGame(player1, player2);
     }
 
+    public List<GameDescription> getGameList() {
+        return database.getGameList();
+    }
+
     public boolean uploadGame(String path, String name, String description) {
         return database.uploadGame(path, name, description);
     }
 
-    public void downloadGame() throws Exception {
-        database.downloadGame();
+    public String downloadGame(int id) throws Exception {
+        return database.downloadGame(id);
     }
 }

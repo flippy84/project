@@ -1,9 +1,9 @@
 package Arena.Server.Database;
 
+import Arena.Client.Games.GameDescription;
 import Arena.Shared.GameState;
 import Arena.Shared.User;
 import Arena.Shared.UserType;
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 import javafx.fxml.Initializable;
 
 import java.io.*;
@@ -11,6 +11,8 @@ import java.nio.file.*;
 import java.nio.file.attribute.FileAttribute;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -66,20 +68,6 @@ public class Database {
             players.add(result.getString(1));
         }
         return players;
-    }
-
-    public boolean checkLogin(String username, String password) throws SQLException {
-        result = statement.executeQuery
-                ("SELECT username, passwords FROM Users");
-
-        while (result.next()) {
-            if (username.equals(result.getString(1)) && password.equals(result.getString(2))) {
-                System.out.println("Main success!\n");
-                return true;
-            }
-        }
-        System.out.println("Main failed!\n");
-        return false;
     }
 
     public void createLeague(String leagueName, String game) throws SQLException {
@@ -161,8 +149,8 @@ public class Database {
             oos.writeObject(gameState);
 
             byte[] buffer = out.toByteArray();
-            ByteInputStream input = new ByteInputStream(buffer, buffer.length);
-            return Optional.of(input);
+            ByteArrayInputStream in = new ByteArrayInputStream(buffer, 0, buffer.length);
+            return Optional.of(in);
         } catch (Exception exception) {
             return Optional.empty();
         }
@@ -220,16 +208,44 @@ public class Database {
             return true;
     }
 
-    public void downloadGame() throws Exception {
-        PreparedStatement statement = connection.prepareStatement("SELECT jar FROM Games WHERE id = 1");
+    public String downloadGame(int id) throws Exception {
+        PreparedStatement statement = connection.prepareStatement("SELECT jar FROM Games WHERE id = ?");
+        statement.setInt(1, id);
         result = statement.executeQuery();
         if (!result.next())
-            return;
+            return "";
 
-        InputStream stream = result.getBinaryStream(1);
-        Path p = FileSystems.getDefault().getPath("C:\\Games\\sample.jar");
-        Files.createDirectories(p.getParent());
-        Files.copy(stream, p, StandardCopyOption.REPLACE_EXISTING);
+        InputStream out = result.getBinaryStream(1);
+        String encodedGame = getBase64String(out);
+        return encodedGame;
+    }
+
+    private String getBase64String(InputStream in) throws Exception {
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        int inByte;
+
+        while ((inByte = in.read()) != -1) {
+            byteStream.write(inByte);
+        }
+
+        return Base64.getEncoder().encodeToString(byteStream.toByteArray());
+    }
+
+    public List<GameDescription> getGameList() {
+        List<GameDescription> gameList = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT id, name, description FROM Games;");
+            result = statement.executeQuery();
+
+            while (result.next()) {
+                gameList.add(new GameDescription(result.getInt(1), result.getString(2), result.getString(3)));
+            }
+        } catch (Exception exception) {
+            return gameList;
+        }
+
+        return gameList;
     }
 
     public Optional<GameState> loadGame(User player1, User player2) {

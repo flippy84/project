@@ -24,9 +24,6 @@ public class Upload implements Initializable {
     @FXML
     private TextArea description;
 
-    public Upload() {
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         upload.setOnMouseClicked(event -> {

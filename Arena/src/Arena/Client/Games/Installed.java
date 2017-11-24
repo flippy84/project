@@ -23,10 +23,6 @@ public class Installed implements Initializable {
     @FXML
     private AnchorPane pane;
 
-    public Installed() {
-
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         play.setOnMouseClicked(event -> {

@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Arena.Client.Games.Library">
    <children>
-      <ListView fx:id="list" layoutX="14.0" layoutY="14.0" prefHeight="304.0" prefWidth="500.0" />
-      <Button fx:id="install" layoutX="466.0" layoutY="328.0" mnemonicParsing="false" text="Install" />
+      <VBox alignment="TOP_RIGHT" layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="500.0">
+         <children>
+            <TableView fx:id="table" prefHeight="300.0" prefWidth="475.0">
+              <columns>
+                <TableColumn fx:id="name" editable="false" prefWidth="75.0" sortable="false" text="Name" />
+                <TableColumn fx:id="description" editable="false" prefWidth="400.0" sortable="false" text="Description" />
+              </columns>
+            </TableView>
+            <Button fx:id="install" mnemonicParsing="false" text="Install">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
