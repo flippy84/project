@@ -15,7 +15,7 @@ public class MainWindow {
     private User user;
 
     @FXML
-    private Button upload, library, installed;
+    private Button upload, library, installed, approve;
     @FXML
     private Pane view;
 
@@ -45,17 +45,11 @@ public class MainWindow {
             });
         });
 
-        /*try {
-            Server.getInstance().uploadGame();
-        } catch (Exception exception) {
-            System.out.println("Error uploading game");
-        }*/
-
-        /*try {
-            Server.getInstance().downloadGame();
-        } catch (Exception exception) {
-            System.out.println("Error uploading game");
-        }*/
+        approve.setOnMouseClicked(event -> {
+            LoadFXML("/Arena/Client/Games/Approve.fxml").ifPresent(approve -> {
+                updateView(approve);
+            });
+        });
 
         Scene scene = new Scene(root);
         stage.setScene(scene);

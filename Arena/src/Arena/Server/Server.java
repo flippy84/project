@@ -43,6 +43,10 @@ public class Server {
         return database.loadGame(player1, player2);
     }
 
+    public List<GameDescription> getApprovedGameList() {
+        return database.getApprovedGameList();
+    }
+
     public List<GameDescription> getGameList() {
         return database.getGameList();
     }
@@ -53,5 +57,13 @@ public class Server {
 
     public String downloadGame(int id) throws Exception {
         return database.downloadGame(id);
+    }
+
+    public void approveGame(int id) {
+        database.approveGame(id);
+    }
+
+    public void revokeGame(int id) {
+        database.revokeGame(id);
     }
 }

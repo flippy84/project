@@ -27,7 +27,7 @@
                               <Insets top="5.0" />
                            </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" prefWidth="1000.0" text="Pending approval">
+                        <Button fx:id="approve" mnemonicParsing="false" prefWidth="1000.0" text="Update approval">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>

@@ -218,21 +218,29 @@ public class Database {
         return encodedGame;
     }
 
-    public List<GameDescription> getGameList() {
+    private List<GameDescription> getGameList(boolean onlyApproved) {
         List<GameDescription> gameList = new ArrayList<>();
 
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT id, name, description FROM Games;");
+            PreparedStatement statement = connection.prepareStatement("SELECT id, name, description, approved FROM Games" + (onlyApproved == true ? " WHERE approved = 1" : "") + ";");
             result = statement.executeQuery();
 
             while (result.next()) {
-                gameList.add(new GameDescription(result.getInt(1), result.getString(2), result.getString(3)));
+                gameList.add(new GameDescription(result.getInt(1), result.getString(2), result.getString(3), result.getBoolean(4)));
             }
         } catch (Exception exception) {
             return gameList;
         }
 
         return gameList;
+    }
+
+    public List<GameDescription> getApprovedGameList() {
+        return getGameList(true);
+    }
+
+    public List<GameDescription> getGameList() {
+        return getGameList(false);
     }
 
     public Optional<GameState> loadGame(User player1, User player2) {
@@ -276,11 +284,22 @@ public class Database {
         }
     }
 
-    public String getUserType(String username) throws SQLException {
-        result = statement.executeQuery("select userType from Users where username ='" + username + "';");
+    public void approveGame(int id) {
+        updateApproval(id, true);
+    }
 
-        if (result.next())
-            return result.getString(1);
-        return "Not found";
+    public void revokeGame(int id) {
+        updateApproval(id, false);
+    }
+
+    private void updateApproval(int id, boolean approved) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("UPDATE Games SET approved = ? WHERE id = ?");
+            statement.setBoolean(1, approved);
+            statement.setInt(2, id);
+            statement.execute();
+        } catch (SQLException exception) {
+            return;
+        }
     }
 }
