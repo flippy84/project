@@ -70,4 +70,8 @@ public class Server {
     public void removeGame(int id) {
         database.removeGame(id);
     }
+
+    public boolean registerUser(User user) {
+        return database.addUser(user);
+    }
 }

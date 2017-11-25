@@ -1,10 +1,12 @@
 package Arena.Shared;
 
+import java.io.Serializable;
+
 /**
  * This class contains information about an user, make sure this class
  * is up to date with the table columns of table Users.
  */
-public class User {
+public class User implements Serializable {
     public int id;
     public String username;
     public String password;
