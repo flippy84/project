@@ -6,9 +6,9 @@ import java.util.Map;
 
 public class ClientHandler implements Runnable {
     private Socket socket;
-    private Map<String, Handler> handlerMap;
+    private Map<String, RequestHandler> handlerMap;
 
-    public ClientHandler(Socket socket, Map<String, Handler> handlerMap) {
+    public ClientHandler(Socket socket, Map<String, RequestHandler> handlerMap) {
         this.socket = socket;
         this.handlerMap = handlerMap;
     }
@@ -24,12 +24,12 @@ public class ClientHandler implements Runnable {
                     continue;
 
                 String request = (String) object;
-                Handler handler = handlerMap.get(request);
+                RequestHandler requestHandler = handlerMap.get(request);
 
-                if (handler == null)
+                if (requestHandler == null)
                     continue;
 
-                handler.handle(in);
+                requestHandler.handle(in);
             } catch (IOException exception) {
                 return;
             } catch (Exception exception) {

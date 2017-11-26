@@ -1,21 +1,20 @@
 package Arena.Server;
 
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 
-public class Handler<T> {
-    private ResponseHandler<T> responseHandler;
+public class RequestHandler<T> {
+    private RequestHandlerMethod<T> requestHandlerMethod;
     private Class<T> param;
 
-    public Handler(ResponseHandler<T> responseHandler, Class<T> param) {
-        this.responseHandler = responseHandler;
+    public RequestHandler(RequestHandlerMethod<T> requestHandlerMethod, Class<T> param) {
+        this.requestHandlerMethod = requestHandlerMethod;
         this.param = param;
     }
 
     public Object handle(ObjectInputStream in) {
         try {
             Object object = in.readObject();
-            return responseHandler.handle(param.cast(object));
+            return requestHandlerMethod.handle(param.cast(object));
         } catch (Exception exception) {
             return null;
         }

@@ -1,15 +1,10 @@
 package Arena.Server;
 
 import Arena.Shared.User;
-import Arena.Shared.UserType;
 
-import javax.xml.ws.Response;
 import java.io.*;
-import java.lang.reflect.Executable;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Hashtable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -22,8 +17,8 @@ public class Main {
             System.out.println("Error starting server.");
         }
 
-        Map<String, Handler> handlerMap = new ConcurrentHashMap<>();
-        handlerMap.put("REGISTER_USER", new Handler<>(server::registerUser, User.class));
+        Map<String, RequestHandler> handlerMap = new ConcurrentHashMap<>();
+        handlerMap.put("REGISTER_USER", new RequestHandler<>(server::registerUser, User.class));
 
         ServerSocket serverSocket = new ServerSocket(12345);
         while (true) {
@@ -33,7 +28,7 @@ public class Main {
             thread.start();
         }
 
-        /*Handler h = handlerHashtable.get("REGISTER_USER");
+        /*RequestHandler h = handlerHashtable.get("REGISTER_USER");
 
         InputStream in = serialize(new User("ante", "test", UserType.Player));
 

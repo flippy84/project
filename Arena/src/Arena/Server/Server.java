@@ -72,6 +72,8 @@ public class Server {
     }
 
     public boolean registerUser(User user) {
+        if (database.getUser(user.username).isPresent())
+            return false;
         return database.addUser(user);
     }
 }

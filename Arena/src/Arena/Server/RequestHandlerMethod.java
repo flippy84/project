@@ -1,5 +1,5 @@
 package Arena.Server;
 
-public interface ResponseHandler<T> {
+public interface RequestHandlerMethod<T> {
     Object handle(T object);
 }
