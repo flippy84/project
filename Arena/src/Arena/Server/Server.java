@@ -6,6 +6,7 @@ import Arena.Shared.GameState;
 import Arena.Shared.User;
 import Arena.Shared.UserType;
 
+import java.io.ObjectInputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,18 +24,24 @@ public class Server {
         return serverInstance;
     }
 
-    public boolean addUser(User user) {
-        return database.addUser(user);
+    public boolean addUser(ObjectInputStream in) {
+        try {
+            User user = (User) in.readObject();
+            if (database.getUser(user.username) != null)
+                return false;
+            return database.addUser(user);
+        } catch (Exception exception) {
+            return false;
+        }
     }
 
-    public void addUser(String username, String password, int rating, UserType userType, int accountBalance) {
-        database.addUser(username, password, rating, userType, accountBalance);
-    }
-
-
-
-    public Optional<User> getUser(String username) {
-        return database.getUser(username);
+    public User getUser(ObjectInputStream in) {
+        try {
+            String username = (String) in.readObject();
+            return database.getUser(username);
+        } catch (Exception exception) {
+            return null;
+        }
     }
 
     public void updateGameState(GameState gameState, User player1, User player2) {
@@ -57,8 +64,13 @@ public class Server {
         return database.uploadGame(gameBase64, name, description);
     }
 
-    public String downloadGame(int id) throws Exception {
-        return database.downloadGame(id);
+    public String downloadGame(ObjectInputStream in) {
+        try {
+            int id = (int) in.readObject();
+            return database.downloadGame(id);
+        } catch (Exception exception) {
+            return "";
+        }
     }
 
     public void approveGame(int id) {
@@ -73,9 +85,21 @@ public class Server {
         database.removeGame(id);
     }
 
-    public boolean registerUser(User user) {
-        if (database.getUser(user.username).isPresent())
+    public boolean addBalance(ObjectInputStream in) {
+        try {
+            String username = (String) in.readObject();
+            Double addedBalance = (double) in.readObject();
+            return database.addBalance(username, addedBalance);
+        } catch (Exception exception) {
             return false;
-        return database.addUser(user);
+        }
     }
+
+    /*public int getBalance(ObjectInputStream in) {
+        try {
+
+        } catch (Exception exception) {
+            return 0;
+        }
+    }*/
 }

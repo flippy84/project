@@ -7,17 +7,20 @@ import java.util.Map;
 public class ClientHandler implements Runnable {
     private Socket socket;
     private Map<String, RequestHandler> handlerMap;
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
 
-    public ClientHandler(Socket socket, Map<String, RequestHandler> handlerMap) {
+    public ClientHandler(Socket socket, Map<String, RequestHandler> handlerMap) throws Exception {
         this.socket = socket;
         this.handlerMap = handlerMap;
+        this.out = new ObjectOutputStream(socket.getOutputStream());
+        this.in = new ObjectInputStream(socket.getInputStream());
     }
 
     @Override
     public void run() {
         while (true) {
             try {
-                ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                 Object object = in.readObject();
 
                 if (!String.class.isInstance(object))
@@ -29,7 +32,7 @@ public class ClientHandler implements Runnable {
                 if (requestHandler == null)
                     continue;
 
-                requestHandler.handle(in);
+                out.writeObject(requestHandler.handle(in));
             } catch (IOException exception) {
                 return;
             } catch (Exception exception) {

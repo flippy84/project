@@ -18,7 +18,9 @@ public class Main {
         }
 
         Map<String, RequestHandler> handlerMap = new ConcurrentHashMap<>();
-        handlerMap.put("REGISTER_USER", new RequestHandler<>(server::registerUser, User.class));
+        handlerMap.put("ADD_USER", new RequestHandler(server::addUser));
+        handlerMap.put("GET_USER", new RequestHandler(server::getUser));
+        handlerMap.put("DOWNLOAD_GAME", new RequestHandler(server::downloadGame));
 
         ServerSocket serverSocket = new ServerSocket(12345);
         while (true) {
@@ -27,24 +29,5 @@ public class Main {
             Thread thread = new Thread(clientHandler);
             thread.start();
         }
-
-        /*RequestHandler h = handlerHashtable.get("REGISTER_USER");
-
-        InputStream in = serialize(new User("ante", "test", UserType.Player));
-
-        Object hej = h.handle(in);*/
-    }
-
-    public static InputStream serialize(User user) throws Exception {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(out);
-        oos.writeObject(user);
-        byte[] buf = out.toByteArray();
-        ByteArrayInputStream in = new ByteArrayInputStream(buf);
-        return in;
-
-        /*ObjectInputStream ois = new ObjectInputStream(in);
-        ois.reset();
-        return ois;*/
     }
 }

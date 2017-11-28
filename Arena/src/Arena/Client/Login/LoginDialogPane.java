@@ -1,5 +1,6 @@
 package Arena.Client.Login;
 
+import Arena.Client.Client;
 import Arena.Client.Register.RegisterDialog;
 import Arena.Server.Server;
 import Arena.Shared.User;
@@ -82,16 +83,19 @@ public class LoginDialogPane extends DialogPane {
      * @return Return true if the login is valid.
      */
     private boolean isLoginValid() {
-        Server server = null;
+        //Server server = null;
+        Client client = null;
         Optional<User> userOptional;
 
         try {
-            server = Server.getInstance();
+            //server = Server.getInstance();
+            client = Client.getInstance();
         } catch (Exception exception) {
             return false;
         }
 
-        userOptional = server.getUser(username.getText());
+        //userOptional = server.getUser(username.getText());
+        userOptional = client.getUser(username.getText());
         if (!userOptional.isPresent())
             return false;
 

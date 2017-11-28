@@ -1,5 +1,6 @@
 package Arena.Client.Register;
 
+import Arena.Client.Client;
 import Arena.Server.Server;
 import Arena.Shared.User;
 import Arena.Shared.UserType;
@@ -22,7 +23,7 @@ public class RegisterDialogPane extends DialogPane {
     @FXML
     private ChoiceBox<UserType> userType;
 
-    private Server server;
+    private Client client;
 
     public RegisterDialogPane() throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("RegisterDialogPane.fxml"));
@@ -30,7 +31,7 @@ public class RegisterDialogPane extends DialogPane {
         loader.setController(this);
         loader.load();
         // Get the server instance for adding an user.
-        server = Server.getInstance();
+        client = Client.getInstance();
 
         // Add items to the userType ChoiceBox.
         ObservableList<UserType> userTypeList = FXCollections.observableArrayList();
@@ -91,7 +92,7 @@ public class RegisterDialogPane extends DialogPane {
     }
 
     private void registerUser(User user) {
-        server.addUser(user);
+        client.addUser(user);
     }
 
     /**
@@ -100,7 +101,7 @@ public class RegisterDialogPane extends DialogPane {
      * @return Returns true if the user exists.
      */
     private boolean userExists(String username) {
-        Optional<User> user = server.getUser(username);
+        Optional<User> user = client.getUser(username);
         if (user.isPresent())
             return true;
         return false;

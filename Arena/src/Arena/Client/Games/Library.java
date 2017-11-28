@@ -1,6 +1,8 @@
 package Arena.Client.Games;
 
+import Arena.Client.Client;
 import Arena.Server.Server;
+import Arena.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Base64;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Library implements Initializable {
@@ -53,8 +56,11 @@ public class Library implements Initializable {
 
     private void installGame(GameDescription game) {
         try {
-            Server server = Server.getInstance();
-            String gameBase64 = server.downloadGame(game.id);
+            Optional<String> gameOptinoal = Client.getInstance().downloadGame(game.id);
+            if (!gameOptinoal.isPresent())
+                return;
+
+            String gameBase64 = gameOptinoal.get();
 
             byte[] gameBytes = Base64.getDecoder().decode(gameBase64);
             Path path = FileSystems.getDefault().getPath(new File(".").getCanonicalPath() + "/Games/" + game.name + ".jar");

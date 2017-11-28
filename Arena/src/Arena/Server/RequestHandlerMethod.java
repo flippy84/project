@@ -1,5 +1,7 @@
 package Arena.Server;
 
-public interface RequestHandlerMethod<T> {
-    Object handle(T object);
+import java.io.ObjectInputStream;
+
+public interface RequestHandlerMethod {
+    Object handle(ObjectInputStream in);
 }
