@@ -27,9 +27,11 @@ public class Server {
         return database.addUser(user);
     }
 
-    public void addUser(String username, String password, int rating, UserType userType) {
-        database.addUser(username, password, rating, userType);
+    public void addUser(String username, String password, int rating, UserType userType, int accountBalance) {
+        database.addUser(username, password, rating, userType, accountBalance);
     }
+
+
 
     public Optional<User> getUser(String username) {
         return database.getUser(username);

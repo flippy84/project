@@ -73,9 +73,14 @@
                <content>
                   <VBox>
                      <children>
-                        <Button mnemonicParsing="false" prefWidth="1000.0" text="Account">
+                        <Button fx:id="account" mnemonicParsing="false" prefWidth="1000.0" text="Account">
                            <VBox.margin>
-                              <Insets />
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="addBalance" mnemonicParsing="false" prefWidth="1000.0" text="Add Balance">
+                           <VBox.margin>
+                              <Insets top="5.0" />
                            </VBox.margin>
                         </Button>
                         <Button mnemonicParsing="false" prefWidth="1000.0" text="Button">

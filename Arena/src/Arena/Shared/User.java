@@ -12,15 +12,17 @@ public class User implements Serializable {
     public String password;
     public int rating;
     public UserType userType;
+    public double accountBalance;
 
     public User(String username, String password, UserType userType) {
-        this(username, password, 0, userType);
+        this(username, password, 0, userType, 0);
     }
 
-    public User(String username, String password, int rating, UserType userType) {
+    public User(String username, String password, int rating, UserType userType, double accountBalance) {
         this.username = username;
         this.password = password;
         this.rating = rating;
         this.userType = userType;
+        this.accountBalance = accountBalance;
     }
 }

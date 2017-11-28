@@ -16,6 +16,8 @@ import java.util.ResourceBundle;
 /**
  * Created by tratt on 2016-12-20.
  */
+
+
 public class AccountController implements Initializable {
 
     private Database db;

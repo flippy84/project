@@ -15,7 +15,7 @@ public class MainWindow {
     private User user;
 
     @FXML
-    private Button upload, library, installed, handle;
+    private Button upload, library, installed, handle, addBalance;
     @FXML
     private Pane view;
 
@@ -48,6 +48,12 @@ public class MainWindow {
         handle.setOnMouseClicked(event -> {
             LoadFXML("/Arena/Client/Games/Handle.fxml").ifPresent(handle -> {
                 updateView(handle);
+            });
+        });
+
+        addBalance.setOnMouseClicked(event -> {
+            LoadFXML("/Arena/Client/Account/AccountBalance.fxml").ifPresent(addBalance -> {
+                updateView(addBalance);
             });
         });
 

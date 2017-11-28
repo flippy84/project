@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Arena.Client.Account.AccountBalance"
+            prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <VBox alignment="TOP_RIGHT" layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="500.0">
+            <children>
+                <HBox alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="200.0">
+                    <children>
+                        <TextField fx:id="input" />
+                        <Button fx:id="addFunds" mnemonicParsing="false" text="Add funds">
+                            <HBox.margin>
+                                <Insets left="5.0" />
+                            </HBox.margin>
+                        </Button>
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

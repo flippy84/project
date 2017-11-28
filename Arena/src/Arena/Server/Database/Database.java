@@ -111,13 +111,14 @@ public class Database {
         return true;
     }
 
-    public boolean addUser(String username, String password, int rating, UserType userType) {
+    public boolean addUser(String username, String password, int rating, UserType userType, double accountBalance) {
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO Users(username, password, rating, userType) VALUES(?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO Users(username, password, rating, userType, accountBalance) VALUES(?, ?, ?, ?, ?)");
             statement.setString(1, username);
             statement.setString(2, password);
             statement.setInt(3, rating);
             statement.setInt(4, userType.value());
+            statement.setDouble(5, accountBalance);
             statement.executeUpdate();
 
         } catch (SQLException exception) {
@@ -262,7 +263,7 @@ public class Database {
 
     public Optional<User> getUser(String username) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT username, password, rating, userType FROM Users WHERE username = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT username, password, rating, userType, accountBalance FROM Users WHERE username = ?");
             statement.setString(1, username);
             result = statement.executeQuery();
 
@@ -278,7 +279,7 @@ public class Database {
                 }
             }
 
-            return Optional.of(new User(result.getString("username"), result.getString("password"), result.getInt("rating"), userType));
+            return Optional.of(new User(result.getString("username"), result.getString("password"), result.getInt("rating"), userType, result.getDouble("accountBalance")));
         } catch (SQLException exception) {
             return Optional.empty();
         }
