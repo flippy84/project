@@ -111,10 +111,10 @@ public class Database {
         return true;
     }
 
-    public boolean addBalance(String username, Double addedBalance) {
+    public boolean depositFunds(String username, Double deposit) {
         try {
             PreparedStatement statement = connection.prepareStatement("UPDATE Users SET accountBalance = accountBalance + ? WHERE username = ?");
-            statement.setDouble(1, addedBalance);
+            statement.setDouble(1, deposit);
             statement.setString(2, username);
             statement.executeUpdate();
 
@@ -123,6 +123,35 @@ public class Database {
         }
 
         return true;
+    }
+
+    public boolean withdrawFunds(String username, Double withdrawal) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("UPDATE Users SET accountBalance = accountBalance - ? WHERE username = ?");
+            statement.setDouble(1, withdrawal);
+            statement.setString(2, username);
+            statement.executeUpdate();
+
+        } catch (SQLException exception) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public double getBalance(String username) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT accountBalance FROM Users WHERE username = ?");
+            statement.setString(1, username);
+            result = statement.executeQuery();
+
+            if (!result.next())
+                return 0;
+
+            return result.getDouble(1);
+        } catch (SQLException exception) {
+            return 0;
+        }
     }
 
     public boolean addUser(User user) {

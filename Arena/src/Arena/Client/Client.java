@@ -1,11 +1,9 @@
 package Arena.Client;
 
 import Arena.Shared.User;
-import Arena.Shared.UserType;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Inet4Address;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Optional;
@@ -32,13 +30,15 @@ public class Client {
         }
     }
 
-    public Optional<String> downloadGame(int id) {
-        String game = null;
+    private void writeObjects(Object... objects) throws Exception {
+        for (Object object : objects)
+            out.writeObject(object);
+    }
 
+    public Optional<String> downloadGame(int id) {
         try {
-            out.writeObject("DOWNLOAD_GAME");
-            out.writeObject(id);
-            game = (String) in.readObject();
+            writeObjects("DOWNLOAD_GAME", id);
+            String game = (String) in.readObject();
 
             if (game.equals(""))
                 return Optional.empty();
@@ -51,8 +51,7 @@ public class Client {
 
     public Optional<User> getUser(String username) {
         try {
-            out.writeObject("GET_USER");
-            out.writeObject(username);
+            writeObjects("GET_USER", username);
             User user = (User) in.readObject();
             return Optional.ofNullable(user);
         } catch (Exception exception) {
@@ -62,11 +61,37 @@ public class Client {
 
     public boolean addUser(User user) {
         try {
-            out.writeObject("ADD_USER");
-            out.writeObject(user);
+            writeObjects("ADD_USER", user);
             return (boolean) in.readObject();
         } catch (Exception exception) {
             return false;
+        }
+    }
+
+    public boolean depositFunds(User user, Double deposit) {
+        try {
+            writeObjects("DEPOSIT_FUNDS", user.username);
+            return (boolean) in.readObject();
+        } catch (Exception exception) {
+            return false;
+        }
+    }
+
+    public boolean withdrawFunds(User user, Double withdrawal) {
+        try {
+            writeObjects("WITHDRAW_FUNDS", user.username);
+            return (boolean) in.readObject();
+        } catch (Exception exception) {
+            return false;
+        }
+    }
+
+    public double getBalance(User user) {
+        try {
+            writeObjects("GET_BALANCE", user.username);
+            return (double) in.readObject();
+        } catch (Exception exception) {
+            return 0;
         }
     }
 }

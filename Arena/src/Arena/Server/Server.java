@@ -4,7 +4,6 @@ import Arena.Client.Games.GameDescription;
 import Arena.Server.Database.Database;
 import Arena.Shared.GameState;
 import Arena.Shared.User;
-import Arena.Shared.UserType;
 
 import java.io.ObjectInputStream;
 import java.util.List;
@@ -85,21 +84,32 @@ public class Server {
         database.removeGame(id);
     }
 
-    public boolean addBalance(ObjectInputStream in) {
+    public boolean depositFunds(ObjectInputStream in) {
         try {
             String username = (String) in.readObject();
-            Double addedBalance = (double) in.readObject();
-            return database.addBalance(username, addedBalance);
+            Double deposit = (double) in.readObject();
+            return database.depositFunds(username, deposit);
         } catch (Exception exception) {
             return false;
         }
     }
 
-    /*public int getBalance(ObjectInputStream in) {
+    public double getBalance(ObjectInputStream in) {
         try {
-
+            String username = (String) in.readObject();
+            return database.getBalance(username);
         } catch (Exception exception) {
             return 0;
         }
-    }*/
+    }
+
+    public boolean withdrawFunds(ObjectInputStream in) {
+        try {
+            String username = (String) in.readObject();
+            Double withdrawal = (double) in.readObject();
+            return database.withdrawFunds(username, withdrawal);
+        } catch (Exception exception) {
+            return false;
+        }
+    }
 }
