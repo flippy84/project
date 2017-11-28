@@ -1,6 +1,8 @@
 package Arena.Client.Account;
 
 
+import Arena.Client.Client;
+import Arena.Client.Session;
 import Arena.Server.Server;
 import Arena.Shared.User;
 import javafx.fxml.FXML;
@@ -8,8 +10,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+import javax.swing.text.html.Option;
+import java.io.ObjectInputStream;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AccountBalance implements Initializable {
@@ -23,21 +28,20 @@ public class AccountBalance implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        try {
-            Server server = Server.getInstance();
-
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-
         addFunds.setOnMouseClicked(event -> {
-            double result = getInput();
-            System.out.print(result);
+            addFunds();
         });
     }
 
     public void addFunds() {
-        //Ta in currentBalance och lägg till önskad mängd funds
+        try {
+            double result = Double.parseDouble(input.getText());
+            User user = Session.getInstance().getUser();
+            Client.getInstance().depositFunds(user, result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private double getInput() {
