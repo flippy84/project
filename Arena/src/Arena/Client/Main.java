@@ -17,7 +17,6 @@ import java.util.Optional;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        test();
         Login login = new Login();
         Optional<User> user = login.login();
         if (!user.isPresent())
@@ -27,19 +26,7 @@ public class Main extends Application {
             System.out.println(String.format("Logging in as %s", u.username));
         });
 
+        Session.getInstance().setUser(user.get());
         new MainWindow(stage, user.get());
-    }
-
-    public void test() {
-        try {
-            Socket s = new Socket();
-            s.connect(new InetSocketAddress("localhost", 12345));
-            ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
-            oos.writeObject("REGISTER_USER");
-            oos.writeObject(new User("ante", "test", UserType.Player));
-            oos.flush();
-        } catch (Exception exception) {
-            System.out.println("Connection error.");
-        }
     }
 }
