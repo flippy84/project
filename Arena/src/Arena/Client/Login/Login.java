@@ -14,7 +14,7 @@ public class Login {
     public Optional<User> login() {
         ButtonType buttonType;
         LoginDialog dialog;
-        Optional<ButtonType> result;
+        Optional result;
         User user = null;
 
         try {
@@ -27,7 +27,7 @@ public class Login {
         if (!result.isPresent())
             return Optional.empty();
 
-        buttonType = result.get();
+        buttonType = (ButtonType) result.get();
         switch (buttonType.getText()) {
             case "Guest login":
                 user = new User("guest", "guest", UserType.Spectator);

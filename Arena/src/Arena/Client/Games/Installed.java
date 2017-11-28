@@ -10,6 +10,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -32,7 +33,7 @@ public class Installed implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            Path dir = FileSystems.getDefault().getPath("C:\\Games\\");
+            Path dir = FileSystems.getDefault().getPath(new File(".").getCanonicalPath() + "/Games");
             Stream<Path> jarFiles = Files.find(dir, 1, (path, attributes) -> {
                 return path.getFileName().toString().endsWith(".jar");
             });

@@ -9,6 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -56,7 +57,7 @@ public class Library implements Initializable {
             String gameBase64 = server.downloadGame(game.id);
 
             byte[] gameBytes = Base64.getDecoder().decode(gameBase64);
-            Path path = FileSystems.getDefault().getPath("C:\\Games\\" + game.name + ".jar");
+            Path path = FileSystems.getDefault().getPath(new File(".").getCanonicalPath() + "/Games/" + game.name + ".jar");
             Files.createDirectories(path.getParent());
             ByteArrayInputStream in = new ByteArrayInputStream(gameBytes);
             Files.copy(in, path, StandardCopyOption.REPLACE_EXISTING);
