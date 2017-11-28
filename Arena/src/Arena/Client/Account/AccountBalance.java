@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 import javax.swing.text.html.Option;
 import java.io.ObjectInputStream;
@@ -25,15 +26,24 @@ public class AccountBalance implements Initializable {
     @FXML
     private TextField input;
 
+    @FXML
+    private Text text;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        setText();
 
         addFunds.setOnMouseClicked(event -> {
             addFunds();
         });
     }
 
-    public void addFunds() {
+    private void setText() {
+        text.setText("Current Balance: " + String.valueOf(Session.getInstance().getUser().accountBalance));
+    }
+
+    private void addFunds() {
         try {
             double result = Double.parseDouble(input.getText());
             User user = Session.getInstance().getUser();
