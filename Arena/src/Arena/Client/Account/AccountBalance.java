@@ -32,15 +32,11 @@ public class AccountBalance implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        setText();
+        updateBalance(Session.getInstance().getUser().accountBalance);
 
         addFunds.setOnMouseClicked(event -> {
             addFunds();
         });
-    }
-
-    private void setText() {
-        text.setText("Current Balance: " + String.valueOf(Session.getInstance().getUser().accountBalance));
     }
 
     private void addFunds() {
@@ -48,10 +44,16 @@ public class AccountBalance implements Initializable {
             double result = Double.parseDouble(input.getText());
             User user = Session.getInstance().getUser();
             Client.getInstance().depositFunds(user, result);
+            double balance = Client.getInstance().getBalance(user);
+            updateBalance(balance);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    private void updateBalance(double balance) {
+        text.setText("Current Balance: " + balance);
     }
 
     private double getInput() {

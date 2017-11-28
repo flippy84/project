@@ -70,7 +70,7 @@ public class Client {
 
     public boolean depositFunds(User user, Double deposit) {
         try {
-            writeObjects("DEPOSIT_FUNDS", user.username);
+            writeObjects("DEPOSIT_FUNDS", user.username, deposit);
             return (boolean) in.readObject();
         } catch (Exception exception) {
             return false;
@@ -79,7 +79,7 @@ public class Client {
 
     public boolean withdrawFunds(User user, Double withdrawal) {
         try {
-            writeObjects("WITHDRAW_FUNDS", user.username);
+            writeObjects("WITHDRAW_FUNDS", user.username, withdrawal);
             return (boolean) in.readObject();
         } catch (Exception exception) {
             return false;
