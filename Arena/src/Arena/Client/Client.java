@@ -42,8 +42,7 @@ public class Client {
         String game = null;
 
         try {
-            out.writeObject("DOWNLOAD_GAME");
-            out.writeObject(id);
+            writeObjects("DOWNLOAD_GAME", id);
             game = (String) in.readObject();
 
             if (game.equals(""))
@@ -57,8 +56,7 @@ public class Client {
 
     public Optional<User> getUser(String username) {
         try {
-            out.writeObject("GET_USER");
-            out.writeObject(username);
+            writeObjects("GET_USER", username);
             User user = (User) in.readObject();
             return Optional.ofNullable(user);
         } catch (Exception exception) {
@@ -68,8 +66,7 @@ public class Client {
 
     public boolean addUser(User user) {
         try {
-            out.writeObject("ADD_USER");
-            out.writeObject(user);
+            writeObjects("ADD_USER", user);
             return (boolean) in.readObject();
         } catch (Exception exception) {
             return false;
@@ -105,8 +102,7 @@ public class Client {
 
     public boolean addAdvertisement(Advertisement advertisement) {
         try {
-            out.writeObject("ADD_ADVERTISEMENT");
-            out.writeObject(advertisement);
+            writeObjects("ADD_ADVERTISEMENT", advertisement);
             return (boolean) in.readObject();
         } catch (Exception exception) {
             return false;
@@ -115,8 +111,7 @@ public class Client {
 
     public Optional<Advertisement> getAdvertisement(int id) {
         try {
-            out.writeObject("GET_ADVERTISEMENT");
-            out.writeObject(id);
+            writeObjects("GET_ADVERTISEMENT", id);
             Advertisement advertisement = (Advertisement) in.readObject();
             return Optional.ofNullable(advertisement);
         } catch (Exception exception) {
