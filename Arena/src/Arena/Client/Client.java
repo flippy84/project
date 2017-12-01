@@ -1,9 +1,12 @@
 package Arena.Client;
 
+import Arena.Shared.Advertisement;
 import Arena.Shared.User;
+import Arena.Shared.UserType;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.Inet4Address;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Optional;
@@ -22,7 +25,7 @@ public class Client {
     private Client() {
         try {
             Socket socket = new Socket();
-            socket.connect(new InetSocketAddress("localhost", 12345));
+            socket.connect(new InetSocketAddress("localhost", 4444));
             out = new ObjectOutputStream(socket.getOutputStream());
             in = new ObjectInputStream(socket.getInputStream());
         } catch (Exception exception) {
@@ -36,9 +39,12 @@ public class Client {
     }
 
     public Optional<String> downloadGame(int id) {
+        String game = null;
+
         try {
-            writeObjects("DOWNLOAD_GAME", id);
-            String game = (String) in.readObject();
+            out.writeObject("DOWNLOAD_GAME");
+            out.writeObject(id);
+            game = (String) in.readObject();
 
             if (game.equals(""))
                 return Optional.empty();
@@ -51,7 +57,8 @@ public class Client {
 
     public Optional<User> getUser(String username) {
         try {
-            writeObjects("GET_USER", username);
+            out.writeObject("GET_USER");
+            out.writeObject(username);
             User user = (User) in.readObject();
             return Optional.ofNullable(user);
         } catch (Exception exception) {
@@ -61,7 +68,8 @@ public class Client {
 
     public boolean addUser(User user) {
         try {
-            writeObjects("ADD_USER", user);
+            out.writeObject("ADD_USER");
+            out.writeObject(user);
             return (boolean) in.readObject();
         } catch (Exception exception) {
             return false;
@@ -92,6 +100,27 @@ public class Client {
             return (double) in.readObject();
         } catch (Exception exception) {
             return 0;
+        }
+    }
+
+    public boolean addAdvertisement(Advertisement advertisement) {
+        try {
+            out.writeObject("ADD_ADVERTISEMENT");
+            out.writeObject(advertisement);
+            return (boolean) in.readObject();
+        } catch (Exception exception) {
+            return false;
+        }
+    }
+
+    public Optional<Advertisement> getAdvertisement(int id) {
+        try {
+            out.writeObject("GET_ADVERTISEMENT");
+            out.writeObject(id);
+            Advertisement advertisement = (Advertisement) in.readObject();
+            return Optional.ofNullable(advertisement);
+        } catch (Exception exception) {
+            return Optional.empty();
         }
     }
 }

@@ -24,8 +24,10 @@ public class Main {
         handlerMap.put("DEPOSIT_FUNDS", new RequestHandler(server::depositFunds));
         handlerMap.put("GET_BALANCE", new RequestHandler(server::getBalance));
         handlerMap.put("WITHDRAW_FUNDS", new RequestHandler(server::withdrawFunds));
+        handlerMap.put("ADD_ADVERTISEMENT", new RequestHandler(server::addAdvertisement));
+        handlerMap.put("GET_ADVERTISEMENT", new RequestHandler(server::getAdvertisement));
 
-        ServerSocket serverSocket = new ServerSocket(12345);
+        ServerSocket serverSocket = new ServerSocket(4444);
         while (true) {
             Socket clientSocket = serverSocket.accept();
             ClientHandler clientHandler = new ClientHandler(clientSocket, handlerMap);

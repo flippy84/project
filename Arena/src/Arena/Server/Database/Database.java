@@ -1,6 +1,7 @@
 package Arena.Server.Database;
 
 import Arena.Client.Games.GameDescription;
+import Arena.Shared.Advertisement;
 import Arena.Shared.GameState;
 import Arena.Shared.User;
 import Arena.Shared.UserType;
@@ -342,6 +343,38 @@ public class Database {
             statement.execute();
         } catch (SQLException exception) {
             return;
+        }
+    }
+
+    public boolean addAdvertisement(Advertisement advertisement) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO Advertisement(id, name, duration, image, url) VALUES(?, ?, ?, ?, ?)");
+            statement.setInt(1, advertisement.id);
+            statement.setString(2, advertisement.name);
+            statement.setInt(3, advertisement.duration);
+            statement.setString(4, advertisement.image);
+            statement.setString(5, advertisement.url);
+            statement.executeUpdate();
+
+        } catch (SQLException exception) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public Advertisement getAdvertisment(int id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT id, name, duration, image, url FROM Advertisement WHERE id = ?");
+            statement.setInt(1, id);
+            result = statement.executeQuery();
+
+            if(!result.next())
+                return null;
+
+            return new Advertisement(result.getInt("id"), result.getString("name"), result.getInt("duration"), result.getString("image"), result.getString("url"));
+        } catch (SQLException exception) {
+            return null;
         }
     }
 }

@@ -2,6 +2,7 @@ package Arena.Server;
 
 import Arena.Client.Games.GameDescription;
 import Arena.Server.Database.Database;
+import Arena.Shared.Advertisement;
 import Arena.Shared.GameState;
 import Arena.Shared.User;
 
@@ -110,6 +111,26 @@ public class Server {
             return database.withdrawFunds(username, withdrawal);
         } catch (Exception exception) {
             return false;
+        }
+    }
+
+    public boolean addAdvertisement(ObjectInputStream in) {
+        try {
+            Advertisement advertisement = (Advertisement) in.readObject();
+            if (database.getAdvertisment(advertisement.id) != null)
+                return false;
+            return database.addAdvertisement(advertisement);
+        } catch (Exception exception) {
+            return false;
+        }
+    }
+
+    public Advertisement getAdvertisement(ObjectInputStream in) {
+        try {
+            int id = (Integer) in.readObject();
+            return database.getAdvertisment(id);
+        } catch (Exception exception) {
+            return null;
         }
     }
 }

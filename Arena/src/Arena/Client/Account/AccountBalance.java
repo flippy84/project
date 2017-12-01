@@ -55,10 +55,5 @@ public class AccountBalance implements Initializable {
     private void updateBalance(double balance) {
         text.setText("Current Balance: " + balance);
     }
-
-    private double getInput() {
-        double result = Double.parseDouble(input.getText());
-        return result;
-    }
 }
 
